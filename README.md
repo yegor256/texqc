@@ -8,7 +8,7 @@
 [![Build Status](https://travis-ci.org/yegor256/texqc.svg)](https://travis-ci.org/yegor256/texqc)
 [![PDD status](http://www.0pdd.com/svg?name=yegor256/texqc)](http://www.0pdd.com/p?name=yegor256/texqc)
 [![Gem Version](https://badge.fury.io/rb/texqc.svg)](http://badge.fury.io/rb/texqc)
-[![Maintainability](https://api.codeclimate.com/v1/badges/7593273bfae71f87ea8c/maintainability)](https://codeclimate.com/github/yegor256/texqc/maintainability)
+[![Maintainability](https://api.codeclimate.com/v1/badges/393fd78703d72cfbe84f/maintainability)](https://codeclimate.com/github/yegor256/texqc/maintainability)
 
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/takes/texqc/master/LICENSE.txt)
 [![Test Coverage](https://img.shields.io/codecov/c/github/yegor256/texqc.svg)](https://codecov.io/github/yegor256/texqc?branch=master)
