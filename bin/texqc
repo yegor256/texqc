@@ -57,11 +57,11 @@ Options are:"
   errors = 0
   f = "#{opts.arguments[0]}.log"
   File.readlines(f).each do |t|
-    if t.include?('Underfull')
+    if t.start_with?('Underfull ')
       errors += 1
       puts t
     end
-    if t.include?('Overfull')
+    if t.start_with?('Overfull ')
       errors += 1
       puts t
     end
