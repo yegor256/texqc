@@ -55,17 +55,22 @@ Options are:"
   raise 'Try --help' if opts.arguments.empty?
   raise 'Too many arguments' unless opts.arguments.length == 1
   errors = 0
-  f = opts.arguments[0]
+  f = "#{opts.arguments[0]}.log"
   File.readlines(f).each do |t|
     if t.include?('Underfull')
       errors += 1
+      puts t
+    end
+    if t.include?('Overfull')
+      errors += 1
+      puts t
     end
   end
   unless errors.zero?
-    log.info("#{errors} spelling errors found in #{files} file(s)")
+    log.info("#{errors} LaTeX processing errors found in #{f.inspect}")
     exit 1
   end
-  log.info("No spelling errors found in #{files} file(s), the text is clean")
+  log.info("No LaTeX processing errors found in #{f.inspect}")
 rescue StandardError => ex
   if opts[:verbose]
     puts Backtrace.new(ex).to_s

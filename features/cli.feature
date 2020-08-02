@@ -14,20 +14,20 @@ Feature: Command Line Processing
     How are you, my dear friend?
     \end{document}
     """
-    When I run pdflatex with "article.tex"
+    When I run bash with "pdflatex article.tex"
     Then I run bin/texqc with "article"
     Then Exit code is zero
-    And Stdout contains "No quality problems found"
+    And Stdout contains "No LaTeX processing errors found"
 
   Scenario: Bad LaTeX log output checked
     Given I have a "article.tex" file with content:
     """
     \documentclass{article}
     \begin{document}
-    How are you, my dear friiend?
+    HowareyouHowareyouHowareyouHowareyouHowareyouHowareyouHowareyouHowareyouHowareyouHowareyouHowareyouHowareyouHowareyou
     \end{document}
     """
-    When I run pdflatex with "article.tex"
+    When I run bash with "pdflatex article.tex"
     Then I run bin/texqc with "article"
     Then Exit code is not zero
-    And Stdout contains "problems"
+    And Stdout contains "1 LaTeX processing errors"
