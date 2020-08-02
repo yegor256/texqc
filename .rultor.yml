@@ -1,0 +1,24 @@
+assets:
+  rubygems.yml: yegor256/home#assets/rubygems.yml
+install: |
+  sudo apt install -y aspell
+  pdd -f /dev/null
+  sudo bundle install --no-color "--gemfile=$(pwd)/Gemfile"
+release:
+  script: |-
+    bundle exec rake
+    sed -i "s/0\.0\.0/${tag}/g" bin/texqc
+    sed -i "s/0\.0\.0/${tag}/g" texqc.gemspec
+    git add bin/texqc
+    git add texqc.gemspec
+    git commit -m "version set to ${tag}"
+    gem build texqc.gemspec
+    chmod 0600 ../rubygems.yml
+    gem push *.gem --config-file ../rubygems.yml
+merge:
+  script: |-
+    bundle exec rake
+deploy:
+  script: |-
+    echo "There is nothing to deploy"
+    exit -1
