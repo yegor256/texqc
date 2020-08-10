@@ -29,6 +29,9 @@ $ latexmk -pdf article
 $ texqc article
 ```
 
+If any warnings were reported by LaTeX, you will get a short list of them
+and the exit code will be non-zero (very convenient for your CI/CD scripts).
+
 ## How to contribute
 
 Read [these guidelines](https://www.yegor256.com/2014/04/15/github-guidelines.html).
