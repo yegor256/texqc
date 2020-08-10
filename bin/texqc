@@ -57,11 +57,7 @@ Options are:"
   errors = 0
   f = "#{opts.arguments[0]}.log"
   File.readlines(f).each do |t|
-    if t.start_with?('Underfull ')
-      errors += 1
-      puts t
-    end
-    if t.start_with?('Overfull ')
+    if t.start_with?('Underfull ', 'Overfull ', 'LaTeX Warning: ')
       errors += 1
       puts t
     end
