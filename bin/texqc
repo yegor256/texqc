@@ -75,9 +75,14 @@ Options are:"
   f = "#{doc}.log"
   e = Errors.new
   File.readlines(f).each_with_index do |t, i|
-    e.report(i, t) if t.start_with?('Underfull ', 'Overfull ', 'LaTeX Warning: ')
-    e.report(i, t) if /^Class [a-zA-Z0-9\*]+ Warning: /.match?(t)
-    e.report(i, t) if /^Package [a-zA-Z0-9\*]+ Warning: /.match?(t)
+    [
+      /^Underfull /,
+      /^Overfull /,
+      /^LaTeX Warning: /,
+      /^Class [a-zA-Z0-9\*]+ Warning: /,
+      /^Package [a-zA-Z0-9\*]+ Warning: /,
+      /^LaTeX Font Warning: /
+    ].each { |p| e.report(i, t) if p.match?(t) }
   end
   unless e.count.zero?
     log.info("#{e.count} LaTeX processing errors found in #{f.inspect}")
