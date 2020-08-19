@@ -67,7 +67,12 @@ Options are:"
   end
   raise 'Try --help' if opts.arguments.empty?
   raise 'Too many arguments' unless opts.arguments.length == 1
-  f = "#{opts.arguments[0]}.log"
+  doc = opts.arguments[0]
+  if doc.end_with?('.tex')
+    log.info("File extention removed from #{doc.inspect}")
+    doc = doc.gsub(/\.tex$/, '')
+  end
+  f = "#{doc}.log"
   e = Errors.new
   File.readlines(f).each_with_index do |t, i|
     e.report(i, t) if t.start_with?('Underfull ', 'Overfull ', 'LaTeX Warning: ')

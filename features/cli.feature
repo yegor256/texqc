@@ -41,6 +41,6 @@ Feature: Command Line Processing
     \end{document}
     """
     When I run bash with "pdflatex article.tex"
-    Then I run bin/texqc with "article"
+    Then I run bin/texqc with "article.tex"
     Then Exit code is not zero
     And Stdout contains "1 LaTeX processing errors"
