@@ -79,6 +79,7 @@ Options are:"
       /^Underfull /,
       /^Overfull /,
       /^LaTeX Warning: /,
+      /^pdfTeX warning: /,
       /^Class [a-zA-Z0-9\*]+ Warning: /,
       /^Package [a-zA-Z0-9\*]+ Warning: /,
       /^LaTeX Font Warning: /
