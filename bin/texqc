@@ -49,7 +49,8 @@ begin
     opts = Slop.parse(ARGV, strict: true, help: true) do |o|
       o.banner = "Usage (#{VERSION}): texqc [options] file
 Options are:"
-      o.array '--dry', 'Don\'t fail the build on errors'
+      o.bool '--dry', 'Don\'t fail the build on errors'
+      o.array '--ignore', 'Ignore given regexp'
       o.bool '--version', 'Print current version' do
         puts VERSION
         exit
@@ -74,16 +75,21 @@ Options are:"
   end
   f = "#{doc}.log"
   e = Errors.new
+  matches = [
+    /^Underfull /,
+    /^Overfull /,
+    /^LaTeX Warning: /,
+    /^pdfTeX warning: /,
+    /^Class [a-zA-Z0-9\*]+ Warning: /,
+    /^Package [a-zA-Z0-9\*]+ Warning: /,
+    /^LaTeX Font Warning: /
+  ]
   File.readlines(f).each_with_index do |t, i|
-    [
-      /^Underfull /,
-      /^Overfull /,
-      /^LaTeX Warning: /,
-      /^pdfTeX warning: /,
-      /^Class [a-zA-Z0-9\*]+ Warning: /,
-      /^Package [a-zA-Z0-9\*]+ Warning: /,
-      /^LaTeX Font Warning: /
-    ].each { |p| e.report(i, t) if p.match?(t) }
+    matches.each do |p|
+      next unless p.match?(t)
+      next if opts[:ignore].any? { |re| /.*#{re}.*/.match?(t) }
+      e.report(i, t)
+    end
   end
   unless e.count.zero?
     log.info("#{e.count} LaTeX processing errors found in #{f.inspect}")

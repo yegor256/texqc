@@ -44,3 +44,15 @@ Feature: Command Line Processing
     Then I run bin/texqc with "article.tex"
     Then Exit code is not zero
     And Stdout contains "1 LaTeX processing errors"
+
+  Scenario: Bad LaTeX log output checked with LaTeX warning, but ignored
+    Given I have a "article.tex" file with content:
+    """
+    \documentclass{article}
+    \begin{document}
+    test\label{xxx}test\label{xxx}
+    \end{document}
+    """
+    When I run bash with "pdflatex article.tex"
+    Then I run bin/texqc with "--ignore 'may have changed' article.tex"
+    Then Exit code is zero
