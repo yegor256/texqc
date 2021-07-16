@@ -1,6 +1,7 @@
 assets:
   rubygems.yml: yegor256/home#assets/rubygems.yml
 install: |
+  tlmgr --verify-repo=none update --self
   sudo apt install -y aspell
   pdd -f /dev/null
   sudo bundle install --no-color "--gemfile=$(pwd)/Gemfile"
