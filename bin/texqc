@@ -47,7 +47,7 @@ begin
   log = Loog::REGULAR
   begin
     opts = Slop.parse(ARGV, strict: true, help: true) do |o|
-      o.banner = "Usage (#{VERSION}): texqc [options] file
+      o.banner = "Usage (#{VERSION}): texqc [options] file...
 Options are:"
       o.bool '--dry', 'Don\'t fail the build on errors'
       o.array '--ignore', 'Ignore given regexp'
@@ -66,36 +66,37 @@ Options are:"
   rescue Slop::Error => ex
     raise ex.message
   end
-  raise 'Try --help' if opts.arguments.empty?
-  raise 'Too many arguments' unless opts.arguments.length == 1
-  doc = opts.arguments[0]
-  if doc.end_with?('.tex')
-    log.info("File extention removed from #{doc.inspect}")
-    doc = doc.gsub(/\.tex$/, '')
-  end
-  f = "#{doc}.log"
-  e = Errors.new
-  matches = [
-    /^Underfull /,
-    /^Overfull /,
-    /^LaTeX Warning: /,
-    /^pdfTeX warning: /,
-    /^Class [a-zA-Z0-9\*]+ Warning: /,
-    /^Package [a-zA-Z0-9\*]+ Warning: /,
-    /^LaTeX Font Warning: /
-  ]
-  File.readlines(f).each_with_index do |t, i|
-    matches.each do |p|
-      next unless p.match?(t)
-      next if opts[:ignore].any? { |re| /.*#{re}.*/.match?(t) }
-      e.report(i, t)
+  candidates = opts.arguments
+  candidates += Dir['*.tex'] if candidates.empty?
+  candidates.each do |doc|
+    if doc.end_with?('.tex')
+      log.info("File extention removed from #{doc.inspect}")
+      doc = doc.gsub(/\.tex$/, '')
     end
+    f = "#{doc}.log"
+    e = Errors.new
+    matches = [
+      /^Underfull /,
+      /^Overfull /,
+      /^LaTeX Warning: /,
+      /^pdfTeX warning: /,
+      /^Class [a-zA-Z0-9\*]+ Warning: /,
+      /^Package [a-zA-Z0-9\*]+ Warning: /,
+      /^LaTeX Font Warning: /
+    ]
+    File.readlines(f).each_with_index do |t, i|
+      matches.each do |p|
+        next unless p.match?(t)
+        next if opts[:ignore].any? { |re| /.*#{re}.*/.match?(t) }
+        e.report(i, t)
+      end
+    end
+    unless e.count.zero?
+      log.info("#{e.count} LaTeX processing errors found in #{f.inspect}")
+      exit 1
+    end
+    log.info("No LaTeX processing errors found in #{f.inspect}")
   end
-  unless e.count.zero?
-    log.info("#{e.count} LaTeX processing errors found in #{f.inspect}")
-    exit 1
-  end
-  log.info("No LaTeX processing errors found in #{f.inspect}")
 rescue StandardError => ex
   if opts[:verbose]
     puts Backtrace.new(ex).to_s
