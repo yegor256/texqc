@@ -1,7 +1,7 @@
 assets:
   rubygems.yml: yegor256/home#assets/rubygems.yml
 install: |
-  sudo tlmgr --verify-repo=none update --self
+  export PATH=$PATH:/usr/local/texlive/2021/bin/x86_64-linux/
   sudo apt install -y aspell
   pdd -f /dev/null
   sudo bundle install --no-color "--gemfile=$(pwd)/Gemfile"
