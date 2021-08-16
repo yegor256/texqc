@@ -48,13 +48,12 @@ begin
   args = []
   if File.exist?('.texqc')
     cfg = File.new('.texqc')
-    body = File.read(cfg)
-    extra = body.split(/\s+/).map(&:strip)
-    args += extra
-    puts "Found #{body.split(/\n/).length} lines in #{File.absolute_path(cfg)}"
+    args += File.readlines(cfg)
+    puts "Found #{args.length} lines in #{File.absolute_path(cfg)}"
   end
   args += ARGV
 
+  puts args
   begin
     opts = Slop.parse(args, strict: true, help: true) do |o|
       o.banner = "Usage (#{VERSION}): texqc [options] file...
@@ -78,6 +77,7 @@ Options are:"
   end
   candidates = opts.arguments
   candidates += Dir['*.tex'] if candidates.empty?
+  puts "Candidates: #{candidates}" if opts[:verbose]
   candidates.each do |doc|
     if doc.end_with?('.tex')
       log.info("File extention removed from #{doc.inspect}")
