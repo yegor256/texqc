@@ -56,3 +56,19 @@ Feature: Command Line Processing
     When I run bash with "pdflatex article.tex"
     Then I run bin/texqc with "--ignore 'may have changed' article.tex"
     Then Exit code is zero
+
+  Scenario: Bad LaTeX log output checked with LaTeX warning, but ignored with .texqc
+    Given I have a "article.tex" file with content:
+    """
+    \documentclass{article}
+    \begin{document}
+    test\label{xxx}test\label{xxx}
+    \end{document}
+    """
+    And I have a ".texqc" file with content:
+    """
+    --ignore 'may have changed' article.tex
+    """
+    When I run bash with "pdflatex article.tex"
+    Then I run bin/texqc
+    Then Exit code is zero
