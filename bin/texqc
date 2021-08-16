@@ -48,7 +48,7 @@ begin
   args = []
   if File.exist?('.texqc')
     cfg = File.new('.texqc')
-    args += File.readlines(cfg)
+    args += File.readlines(cfg).map(&:strip)
     puts "Found #{args.length} lines in #{File.absolute_path(cfg)}"
   end
   args += ARGV
@@ -76,6 +76,8 @@ Options are:"
   end
   candidates = opts.arguments
   candidates += Dir['*.tex'] if candidates.empty?
+  puts "Args: #{args}" if opts[:verbose]
+  puts "Ignore: #{opts[:ignore]}" if opts[:verbose]
   puts "Candidates: #{candidates}" if opts[:verbose]
   candidates.each do |doc|
     if doc.end_with?('.tex')

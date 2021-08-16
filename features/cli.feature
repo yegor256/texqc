@@ -67,7 +67,9 @@ Feature: Command Line Processing
     """
     And I have a ".texqc" file with content:
     """
-    --ignore 'may have changed' article.tex
+    --verbose
+
+    --ignore='may have changed'
     """
     When I run bash with "pdflatex article.tex"
     Then I run bin/texqc
