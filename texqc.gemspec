@@ -32,7 +32,7 @@ Gem::Specification.new do |s|
   s.rubygems_version = '2.2'
   s.required_ruby_version = '>= 2.3'
   s.name = 'texqc'
-  s.version = '0.0.0'
+  s.version = '0.7.1'
   s.license = 'MIT'
   s.summary = 'Quality Control of Your LaTeX Build'
   s.description = 'Run it after you compile your LaTeX document'
