@@ -43,15 +43,19 @@ class Errors
   end
 end
 
+def config(path)
+  f = File.expand_path(path)
+  args = []
+  if File.exist?(f)
+    args += File.readlines(f).map(&:strip)
+    puts "Found #{args.length} lines in #{File.absolute_path(f)}"
+  end
+  args
+end
+
 begin
   log = Loog::REGULAR
-  args = []
-  if File.exist?('.texqc')
-    cfg = File.new('.texqc')
-    args += File.readlines(cfg).map(&:strip)
-    puts "Found #{args.length} lines in #{File.absolute_path(cfg)}"
-  end
-  args += ARGV
+  args = config('~/.texqc') + config('.texqc') + ARGV
 
   begin
     opts = Slop.parse(args, strict: true, help: true) do |o|

@@ -32,6 +32,11 @@ $ texqc article
 If any warnings were reported by LaTeX, you will get a short list of them
 and the exit code will be non-zero (very convenient for your CI/CD scripts).
 
+To make configuration easier, you can create `.texqc` file next to your
+`.tex` file and place all your command line configuration options over there,
+each one on its own line. You can also have a global configuration file
+at `~/.texqc`, which will be read first.
+
 ## How to contribute
 
 Read [these guidelines](https://www.yegor256.com/2014/04/15/github-guidelines.html).
