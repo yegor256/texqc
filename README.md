@@ -2,8 +2,6 @@
 
 [![Gem Version](https://badge.fury.io/rb/texqc.svg)](http://badge.fury.io/rb/texqc)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/takes/texqc/master/LICENSE.txt)
-[![Test Coverage](https://img.shields.io/codecov/c/github/yegor256/texqc.svg)](https://codecov.io/github/yegor256/texqc?branch=master)
-[![Hits-of-Code](https://hitsofcode.com/github/yegor256/texqc)](https://hitsofcode.com/view/github/yegor256/texqc)
 
 **THIS PACKAGE IS RETIRED, USE [`\usepackage{fail-fast}`](https://github.com/yegor256/fail-fast) INSTEAD!**
 
