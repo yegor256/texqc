@@ -3,8 +3,6 @@
 [![Gem Version](https://badge.fury.io/rb/texqc.svg)](http://badge.fury.io/rb/texqc)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/takes/texqc/master/LICENSE.txt)
 
-**THIS PACKAGE IS RETIRED, USE [`\usepackage{fail-fast}`](https://github.com/yegor256/fail-fast) INSTEAD!**
-
 This tool helps you make sure your LaTeX document compiles without issues.
 
 First, you install it:
