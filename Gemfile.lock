@@ -64,6 +64,7 @@ PLATFORMS
   arm64-darwin-23
   arm64-darwin-24
   ruby
+  x64-mingw-ucrt
   x86_64-linux
 
 DEPENDENCIES
@@ -73,9 +74,6 @@ DEPENDENCIES
   rubocop (= 0.61.0)
   rubocop-rspec (= 1.31.0)
   texqc!
-
-RUBY VERSION
-   ruby 3.3.5p100
 
 BUNDLED WITH
    2.5.16
