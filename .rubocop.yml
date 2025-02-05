@@ -4,7 +4,6 @@ AllCops:
     - 'vendor/**/*'
   DisplayCopNames: true
   TargetRubyVersion: 2.3
-
 Metrics/LineLength:
   Max: 100
 Layout/EndOfLine:
@@ -17,3 +16,7 @@ Layout/AlignParameters:
   Enabled: false
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
+required:
+  - rubocop-rake
+  - rubocop-minitest
+  - rubocop-performance
