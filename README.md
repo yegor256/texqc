@@ -1,6 +1,6 @@
 <img src="/logo.svg" width="64px"/>
 
-[![Gem Version](https://badge.fury.io/rb/texqc.svg)](http://badge.fury.io/rb/texqc)
+[![Gem Version](https://badge.fury.io/rb/texqc.svg)](https://badge.fury.io/rb/texqc)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/yegor256/takes/texqc/master/LICENSE.txt)
 
 This tool helps you make sure your LaTeX document compiles without issues.
