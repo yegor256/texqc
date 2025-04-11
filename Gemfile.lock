@@ -33,7 +33,7 @@ GEM
     multi_json (1.15.0)
     multi_test (1.1.0)
     parallel (1.26.3)
-    parser (3.3.7.3)
+    parser (3.3.7.4)
       ast (~> 2.4.1)
       racc
     powerpack (0.1.3)
