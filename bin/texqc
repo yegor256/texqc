@@ -68,7 +68,7 @@ Options are:"
   puts "Candidates: #{candidates}" if opts[:verbose]
   candidates.each do |doc|
     if doc.end_with?('.tex')
-      log.info("File extention removed from #{doc.inspect}")
+      log.info("File extension removed from #{doc.inspect}")
       doc = doc.gsub(/\.tex$/, '')
     end
     f = "#{doc}.log"
