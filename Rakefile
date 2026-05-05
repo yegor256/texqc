@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
+require 'rake'
+require 'rake/clean'
+require 'rdoc'
 # SPDX-FileCopyrightText: Copyright (c) 2020-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
 require 'rubygems'
-require 'rake'
-require 'rdoc'
-require 'rake/clean'
 
 def name
   @name ||= File.basename(Dir['*.gemspec'].first, '.*')

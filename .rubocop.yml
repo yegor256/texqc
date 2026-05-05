@@ -5,23 +5,58 @@ plugins:
   - rubocop-rake
   - rubocop-minitest
   - rubocop-performance
+  - rubocop-elegant
 AllCops:
-  NewCops: disable
+  EnabledByDefault: true
+  NewCops: enable
+  Include:
+    - '**/*.rb'
+    - '**/*.gemspec'
+    - '**/Gemfile'
+    - '**/Rakefile'
+    - 'bin/*'
   Exclude:
     - 'assets/**/*'
     - 'vendor/**/*'
   DisplayCopNames: true
   TargetRubyVersion: 3.3
   SuggestExtensions: false
-Layout/LineLength:
-  Max: 100
-Layout/EndOfLine:
-  EnforcedStyle: lf
+Style/Copyright:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+Style/OneClassPerFile:
+  Exclude:
+    - 'bin/*'
+Style/TopLevelMethodDefinition:
+  Exclude:
+    - 'bin/*'
+    - 'Rakefile'
 Style/MultilineTernaryOperator:
   Enabled: false
-Metrics/BlockLength:
-  Max: 50
-Layout/ParameterAlignment:
+Style/DocumentationMethod:
+  Enabled: false
+Style/Documentation:
+  Enabled: false
+Style/MissingElse:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
+Style/ImplicitRuntimeError:
+  Enabled: false
+Style/InvertibleUnlessCondition:
+  Enabled: false
+Style/CollectionQuerying:
+  Exclude:
+    - 'bin/*'
+Bundler/GemComment:
+  Enabled: false
+Gemspec/DevelopmentDependencies:
+  Enabled: false
+Lint/ConstantResolution:
   Enabled: false
 Layout/EmptyLineAfterGuardClause:
   Enabled: false
+Elegant/NoComments:
+  Exclude:
+    - 'bin/*'
