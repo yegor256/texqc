@@ -1,4 +1,4 @@
-# SPDX-FileCopyrightText: Copyright (c) 2020 Yegor Bugayenko
+# SPDX-FileCopyrightText: Copyright (c) 2020-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 Feature: Command Line Processing
   As an author of LaTeX document I want to check spelling
@@ -8,55 +8,39 @@ Feature: Command Line Processing
     Then Exit code is zero
     And Stdout contains "--help"
 
-  Scenario: Good LaTeX log output can be checked
-    Given I have a "article.tex" file with content:
+  Scenario: A clean log produces no errors
+    Given I have a "article.log" file with content:
     """
-    \documentclass{article}
-    \begin{document}
-    How are you, my dear friend?
-    \end{document}
+    This is pdfTeX, output written on article.pdf (1 page, 1234 bytes).
     """
-    When I run bash with "pdflatex article.tex"
-    Then I run bin/texqc with ""
+    Then I run bin/texqc with "article"
     Then Exit code is zero
     And Stdout contains "No LaTeX processing errors found"
 
-  Scenario: Bad LaTeX log output checked
-    Given I have a "article.tex" file with content:
+  Scenario: An overfull box is reported
+    Given I have a "article.log" file with content:
     """
-    \documentclass{article}
-    \begin{document}
-    HowareyouHowareyouHowareyouHowareyouHowareyouHowareyouHowareyouHowareyouHowareyouHowareyouHowareyouHowareyouHowareyou
-    \end{document}
+    Overfull \hbox (50.12345pt too wide) in paragraph at lines 3--3
     """
-    When I run bash with "pdflatex article.tex"
     Then I run bin/texqc with "article"
     Then Exit code is not zero
     And Stdout contains "1 LaTeX processing errors"
 
-  Scenario: Bad LaTeX log output checked with LaTeX warning
-    Given I have a "article.tex" file with content:
+  Scenario: A LaTeX warning is reported
+    Given I have a "article.log" file with content:
     """
-    \documentclass{article}
-    \begin{document}
-    test\label{xxx}test\label{xxx}
-    \end{document}
+    LaTeX Warning: Label `xxx' multiply defined.
     """
-    When I run bash with "pdflatex article.tex"
-    Then I run bin/texqc with "article.tex"
+    Then I run bin/texqc with "article"
     Then Exit code is not zero
     And Stdout contains "1 LaTeX processing errors"
 
-  Scenario: Bad LaTeX log output checked with LaTeX warning, but ignored
-    Given I have a "article.tex" file with content:
+  Scenario: A LaTeX warning can be ignored from the command line
+    Given I have a "article.log" file with content:
     """
-    \documentclass{article}
-    \begin{document}
-    test\label{xxx}test\label{xxx}
-    \end{document}
+    LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
     """
-    When I run bash with "pdflatex article.tex"
-    Then I run bin/texqc with "--ignore 'may have changed' article.tex"
+    Then I run bin/texqc with "--ignore 'may have changed' article"
     Then Exit code is zero
 
   Scenario: Class warning with a hyphen in the class name is not ignored
@@ -77,20 +61,15 @@ Feature: Command Line Processing
     Then Exit code is not zero
     And Stdout contains "1 LaTeX processing errors"
 
-  Scenario: Bad LaTeX log output checked with LaTeX warning, but ignored with .texqc
-    Given I have a "article.tex" file with content:
+  Scenario: Ignore patterns from .texqc are honored
+    Given I have a "article.log" file with content:
     """
-    \documentclass{article}
-    \begin{document}
-    test\label{xxx}test\label{xxx}
-    \end{document}
+    LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
     """
     And I have a ".texqc" file with content:
     """
     --verbose
-
-    --ignore='may have changed'
+    --ignore=changed
     """
-    When I run bash with "pdflatex article.tex"
-    Then I run bin/texqc
+    Then I run bin/texqc with "article"
     Then Exit code is zero
