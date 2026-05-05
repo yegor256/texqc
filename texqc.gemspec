@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.required_rubygems_version = Gem::Requirement.new('>= 0') if s.respond_to?(:required_rubygems_version=)
   s.required_ruby_version = '>= 3.3'
   s.name = 'texqc'
-  s.version = '0.0.0'
+  s.version = '0.9.1'
   s.license = 'MIT'
   s.summary = 'Quality Control of Your LaTeX Build'
   s.description = 'Run it after you compile your LaTeX document'
