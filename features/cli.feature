@@ -59,6 +59,24 @@ Feature: Command Line Processing
     Then I run bin/texqc with "--ignore 'may have changed' article.tex"
     Then Exit code is zero
 
+  Scenario: Class warning with a hyphen in the class name is not ignored
+    Given I have a "book.log" file with content:
+    """
+    Class yb-book Warning: page 78 is too long.
+    """
+    Then I run bin/texqc with "book"
+    Then Exit code is not zero
+    And Stdout contains "1 LaTeX processing errors"
+
+  Scenario: Package warning with a hyphen in the package name is not ignored
+    Given I have a "book.log" file with content:
+    """
+    Package etex-pkg Warning: redefining \foo.
+    """
+    Then I run bin/texqc with "book"
+    Then Exit code is not zero
+    And Stdout contains "1 LaTeX processing errors"
+
   Scenario: Bad LaTeX log output checked with LaTeX warning, but ignored with .texqc
     Given I have a "article.tex" file with content:
     """
