@@ -4,7 +4,7 @@
 # SPDX-FileCopyrightText: Copyright (c) 2020-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
-VERSION = '0.0.0'
+VERSION = '0.9.0'
 
 $stdout.sync = true
 
