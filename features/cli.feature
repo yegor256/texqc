@@ -73,3 +73,13 @@ Feature: Command Line Processing
     """
     Then I run bin/texqc with "article"
     Then Exit code is zero
+
+  Scenario: A log with invalid UTF-8 bytes is processed without crashing
+    Given I have a "article.log" file with content:
+    """
+    Some unrelated line with a bad byte: \xFF here
+    LaTeX Warning: Label `xxx' multiply defined.
+    """
+    Then I run bin/texqc with "article"
+    Then Exit code is not zero
+    And Stdout contains "1 LaTeX processing errors"
