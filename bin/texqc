@@ -79,8 +79,8 @@ Options are:"
       /^Overfull /,
       /^LaTeX Warning: /,
       /^pdfTeX warning: /,
-      /^Class [a-zA-Z0-9*]+ Warning: /,
-      /^Package [a-zA-Z0-9*]+ Warning: /,
+      /^Class \S+ Warning: /,
+      /^Package \S+ Warning: /,
       /^LaTeX Font Warning: /
     ]
     File.readlines(f).each_with_index do |t, i|
