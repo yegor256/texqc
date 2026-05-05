@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
     s.required_rubygems_version = Gem::Requirement.new('>= 0')
   end
   s.rubygems_version = '2.2'
-  s.required_ruby_version = '>= 2.3'
+  s.required_ruby_version = '>= 3.3'
   s.name = 'texqc'
   s.version = '0.0.0'
   s.license = 'MIT'
@@ -27,12 +27,11 @@ Gem::Specification.new do |s|
   s.test_files = s.files.grep(%r{^(test|spec|features)/})
   s.rdoc_options = ['--charset=UTF-8']
   s.extra_rdoc_files = ['README.md', 'LICENSE.txt']
-  s.add_runtime_dependency 'backtrace', '~> 0.3'
-  s.add_runtime_dependency 'loog', '~> 0.2'
-  s.add_runtime_dependency 'slop', '~> 4.8.2'
-  s.add_development_dependency 'codecov', '0.2.6'
-  s.add_development_dependency 'cucumber', '~> 1.3.17'
-  s.add_development_dependency 'rake', '12.3.3'
-  s.add_development_dependency 'rubocop', '0.61.0'
-  s.add_development_dependency 'rubocop-rspec', '1.31.0'
+  s.add_runtime_dependency 'backtrace', '~> 0.4'
+  s.add_runtime_dependency 'loog', '~> 0.8'
+  s.add_runtime_dependency 'slop', '~> 4.10'
+  s.add_development_dependency 'cucumber', '~> 11.0'
+  s.add_development_dependency 'rake', '~> 13.4'
+  s.add_development_dependency 'rubocop', '~> 1.86'
+  s.add_development_dependency 'rubocop-rspec', '~> 3.9'
 end
