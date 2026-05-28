@@ -85,8 +85,9 @@ begin
       /^Package \S+ Warning: /,
       /^LaTeX Font Warning: /
     ]
-    File.open(f) do |io|
+    File.open(f, 'rb') do |io|
       io.each_line.with_index do |t, i|
+        t = t.force_encoding('UTF-8').scrub
         matches.each do |p|
           next unless p.match?(t)
           next if opts[:ignore].any? { |re| /.*#{re}.*/.match?(t) }
