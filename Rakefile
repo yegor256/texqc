@@ -21,7 +21,6 @@ task default: %i[clean features rubocop]
 require 'rubocop/rake_task'
 RuboCop::RakeTask.new(:rubocop) do |task|
   task.fail_on_error = true
-  task.requires << 'rubocop-rspec'
 end
 
 require 'cucumber/rake/task'
