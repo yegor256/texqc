@@ -6,6 +6,7 @@
 source 'https://rubygems.org'
 gemspec
 
+gem 'rdoc', '~>8.0', require: false
 gem 'rubocop-elegant', '~> 0.1', require: false
 gem 'rubocop-minitest', '~> 0.39', require: false
 gem 'rubocop-performance', '~> 1.26', require: false
