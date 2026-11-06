@@ -1,17 +1,17 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "automerge": true,
   "extends": [
     "config:base"
   ],
-  "automerge": true,
-  "platformAutomerge": false,
   "packageRules": [
     {
+      "groupName": "SimpleCov coverage",
       "matchPackageNames": [
         "simplecov",
         "simplecov-cobertura"
-      ],
-      "groupName": "SimpleCov coverage"
+      ]
     }
-  ]
+  ],
+  "platformAutomerge": false
 }
