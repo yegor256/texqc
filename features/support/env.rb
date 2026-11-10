@@ -3,9 +3,11 @@
 # SPDX-FileCopyrightText: Copyright (c) 2020-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
 
+require 'coverage'
 require 'simplecov'
 require 'simplecov-cobertura'
-unless SimpleCov.running
+require 'simplecov-html'
+unless Coverage.running?
   SimpleCov.command_name('features')
   SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
     [
