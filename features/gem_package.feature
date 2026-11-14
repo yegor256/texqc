@@ -5,22 +5,14 @@ Feature: Gem Package
   package the Gem into .gem file
 
   Scenario: Gem can be packaged
-    Given It is Unix
-    Given I have a "execs.rb" file with content:
+    When I run Ruby with:
     """
-    #!/usr/bin/env ruby
-    require 'rubygems'
-    spec = Gem::Specification::load('./spec.rb')
-    if spec.executables.empty?
-      fail 'no executables: ' + File.read('./spec.rb')
+    require 'rubygems/package'
+    Dir.chdir('texqc') do
+      gem = Gem::Package.build(Gem::Specification.load('texqc.gemspec'))
+      spec = Gem::Package.new(gem).spec
+      raise 'missing texqc executable' unless spec.executables.include?('texqc')
+      raise 'missing bin/texqc' unless spec.files.include?('bin/texqc')
     end
-    """
-    When I run bash with:
-    """
-    cd texqc
-    gem build texqc.gemspec
-    gem specification --ruby texqc-*.gem > ../spec.rb
-    cd ..
-    ruby execs.rb
     """
     Then Exit code is zero
