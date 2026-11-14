@@ -34,6 +34,10 @@ Then(/^Stdout contains "([^"]*)"$/) do |txt|
   raise "STDOUT doesn't contain '#{txt}':\n#{@stdout}" unless @stdout.include?(txt)
 end
 
+Then(/^Stdout does not contain "([^"]*)"$/) do |txt|
+  raise "STDOUT contains '#{txt}':\n#{@stdout}" if @stdout.include?(txt)
+end
+
 Then(/^Stdout is empty$/) do
   raise "STDOUT is not empty:\n#{@stdout}" unless @stdout == ''
 end
