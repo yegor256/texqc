@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.authors = ['Yegor Bugayenko']
   s.email = 'yegor256@gmail.com'
   s.homepage = 'https://github.com/yegor256/texqc'
-  s.files = `git ls-files | grep -v -E '^(test/|\\.|renovate)'`.split($RS)
+  s.files = `git ls-files`.split($RS).grep_v(%r{^(test/|\.|renovate)})
   s.executables = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.rdoc_options = ['--charset=UTF-8']
   s.extra_rdoc_files = ['README.md', 'LICENSE.txt']

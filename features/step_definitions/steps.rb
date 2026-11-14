@@ -1,8 +1,11 @@
 # frozen_string_literal: true
 
-require 'English'
 # SPDX-FileCopyrightText: Copyright (c) 2020-2026 Yegor Bugayenko
 # SPDX-License-Identifier: MIT
+
+require 'English'
+require 'open3'
+require 'shellwords'
 
 require 'tmpdir'
 
@@ -25,8 +28,8 @@ end
 
 When(%r{^I run bin/texqc with "([^"]*)"$}) do |arg|
   home = File.join(File.dirname(__FILE__), '../..')
-  @stdout = `ruby -I#{home}/lib #{home}/bin/texqc #{arg}`
-  @exitstatus = $CHILD_STATUS.exitstatus
+  @stdout, status = Open3.capture2(RbConfig.ruby, "-I#{home}/lib", "#{home}/bin/texqc", *Shellwords.split(arg))
+  @exitstatus = status.exitstatus
 end
 
 Then(/^Stdout contains "([^"]*)"$/) do |txt|
@@ -51,10 +54,10 @@ When(/^I run bash with "([^"]*)"$/) do |text|
   @exitstatus = $CHILD_STATUS.exitstatus
 end
 
-When(/^I run bash with:$/) do |text|
+When(/^I run Ruby with:$/) do |text|
   FileUtils.copy_entry(@cwd, File.join(@dir, 'texqc'))
-  @stdout = `#{text}`
-  @exitstatus = $CHILD_STATUS.exitstatus
+  @stdout, status = Open3.capture2(RbConfig.ruby, '-e', text)
+  @exitstatus = status.exitstatus
 end
 
 Given(/^It is Unix$/) do
