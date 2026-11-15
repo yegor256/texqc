@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_dependency('backtrace', '~> 0.4')
   s.add_dependency('loog', '~> 0.8')
   s.add_dependency('slop', '~> 4.10')
-  s.add_development_dependency('cucumber', '~> 11.0')
+  s.add_development_dependency('cucumber', '~> 12.0')
   s.add_development_dependency('rake', '~> 13.4')
   s.add_development_dependency('rubocop', '~> 1.86')
   s.add_development_dependency('rubocop-rspec', '~> 3.9')
