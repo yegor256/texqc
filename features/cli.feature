@@ -83,3 +83,38 @@ Feature: Command Line Processing
     Then I run bin/texqc with "article"
     Then Exit code is not zero
     And Stdout contains "1 LaTeX processing errors"
+
+  Scenario: Dry mode reports warnings and continues checking files
+    Given I have a "article.log" file with content:
+    """
+    Overfull \hbox (50.12345pt too wide) in paragraph at lines 3--3
+    """
+    And I have a "book.log" file with content:
+    """
+    LaTeX Warning: Label `xxx' multiply defined.
+    """
+    And I have a "clean.log" file with content:
+    """
+    This is pdfTeX, output written on clean.pdf (1 page, 1234 bytes).
+    """
+    When I run bin/texqc with "--dry article.tex book.tex clean.tex"
+    Then Exit code is zero
+    And Stdout contains "Overfull"
+    And Stdout contains "LaTeX Warning:"
+    And Stdout contains "1 LaTeX processing errors found"
+    And Stdout contains "No LaTeX processing errors found"
+
+  Scenario: Dry mode from .texqc reports warnings without failing
+    Given I have a "article.log" file with content:
+    """
+    Overfull \hbox (50.12345pt too wide) in paragraph at lines 3--3
+    """
+    And I have a ".texqc" file with content:
+    """
+    --dry
+    """
+    When I run bin/texqc with "article.tex"
+    Then Exit code is zero
+    And Stdout contains "Overfull"
+    And Stdout contains "1 LaTeX processing errors"
+    And Stdout does not contain "No LaTeX processing errors found"

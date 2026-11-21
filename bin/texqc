@@ -97,7 +97,8 @@ begin
     end
     unless e.count.zero?
       log.info("#{e.count} LaTeX processing errors found in #{f.inspect}")
-      exit(1)
+      exit(1) unless opts[:dry]
+      next
     end
     log.info("No LaTeX processing errors found in #{f.inspect}")
   end
